@@ -52,7 +52,7 @@ jobs:
 
     # Using zip for an build artifact
     - name: Zip artifact
-      run: Compress-Archive -LiteralPath .\README.md .\LICENSE .\test\test\out\test.dll -DestinationPath .\test.zip
+      run: Compress-Archive -LiteralPath .\README.md, .\LICENSE, .\test\test\out\test.dll -DestinationPath .\test.zip
       shell: powershell
 
     # Create a release for a tag in this repository
