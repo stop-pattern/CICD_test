@@ -50,7 +50,7 @@ jobs:
 
     # Using zip for an build artifact
     - name: Zip artifact
-      run: Compress-Archive -LiteralPath .\README.md, .\LICENSE, .\test\test\out\test.dll -DestinationPath .\test.zip
+      run: Compress-Archive -LiteralPath .\README.md, .\LICENSE, .\test\test\out\test.dll -DestinationPath .\test_${{ github.ref }}.zip
       shell: powershell
 
     # Runs a set of commands using the runners shell
@@ -90,9 +90,9 @@ jobs:
         # See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         # The path to the asset you want to upload
-        asset_path: .\test.zip
+        asset_path: .\test_${{ github.ref }}.zip
         # The name of the asset you want to upload
-        asset_name: test.zip
+        asset_name: test_${{ github.ref }}.zip
         # The content-type of the asset you want to upload
         # See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         asset_content_type: application/zip
