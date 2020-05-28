@@ -9,5 +9,6 @@
 
 // プリコンパイルするヘッダーをここに追加します
 #include "framework.h"
+#include "ats.h"
 
 #endif //PCH_H
