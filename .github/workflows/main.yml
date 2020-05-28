@@ -6,7 +6,7 @@ name: CI
 # events but only for the release branch
 on:
   push:
-    branches: [ release ]
+    branches: [ actions ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,8 +34,13 @@ jobs:
     #  uses: warrenbuckley/Setup-MSBuild@v1
 
     # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
+    - name: Run a msbuild script
       run: msbuild test/test.sln -p:OutDir="out/"
+      shell: cmd
+
+    # Runs a set of commands using the runners shell
+    - name: Run a script
+      run: dir
       shell: cmd
 
     # Upload a build artifact that can be used by subsequent workflow steps
@@ -45,4 +50,4 @@ jobs:
         # Artifact name
         #name: # optional
         # A file, directory or wildcard pattern that describes what to upload
-        path: ./test/out/
+        path: "./out/"
