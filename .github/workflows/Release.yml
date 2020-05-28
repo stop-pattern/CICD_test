@@ -24,7 +24,7 @@ jobs:
       # Using zip for an build artifact
       - name: Zip artifact
         run: zip -j README.md LICENSE test\test\out\test.dll
-        shell: pwsh
+        shell: powershell
       # Using zip for an build artifact
       #- name: Zip artifact
       #  run: Compress-Archive -LiteralPath .\README.md .\LICENSE .\test\test\out\test.dll -DestinationPath test.zip
