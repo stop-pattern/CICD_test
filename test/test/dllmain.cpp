@@ -43,6 +43,7 @@ DE void SC Initialize(int) {
 
 DE Hand SC Elapse(State, int*, int*) {
     if (door) return manual;
+    if (manual.B >= (vspec.B + 1) / 2) return manual;
     Hand ret = manual;
     manual.B = (vspec.B + 1) / 2;
     return ret;
