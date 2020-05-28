@@ -1,0 +1,70 @@
+name: Release
+
+# Controls when the action will run. Triggers the workflow on push with tag
+# events but only for the release branch
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    name: Upload Release Asset
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Using zip for an build artifact
+      - name: Zip artifact
+        run: zip -j README.md LICENSE test\test\out\test.dll
+        shell: pwsh
+      # Using zip for an build artifact
+      #- name: Zip artifact
+      #  run: Compress-Archive -LiteralPath .\README.md .\LICENSE .\test\test\out\test.dll -DestinationPath test.zip
+      #  shell: powershell
+
+      # Create a release for a tag in this repository
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
+          tag_name: ${{ github.ref }}
+          # The name of the release. For example, `Release v1.0.1`
+          release_name: Release ${{ github.ref }}
+          # Text describing the contents of the tag.
+          #body: # optional
+          # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
+          draft: false # optional
+          # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
+          prerelease: false # optional
+
+      # Upload a release asset to an existing release on this repository
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # The URL for uploading assets to the release
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`
+          # See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          # The path to the asset you want to upload
+          asset_path: ./my-artifact.zip
+          # The name of the asset you want to upload
+          asset_name: my-artifact.zip
+          # The content-type of the asset you want to upload
+          # See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
+          asset_content_type: application/zip
