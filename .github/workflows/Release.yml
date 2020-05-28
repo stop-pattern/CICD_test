@@ -6,7 +6,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-    - 'test/*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    - 'test/*pre' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -78,7 +78,7 @@ jobs:
         # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
         draft: false # optional
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        prerelease: false # optional
+        prerelease: true # optional
 
     # Upload a release asset to an existing release on this repository
     - name: Upload Release Asset
