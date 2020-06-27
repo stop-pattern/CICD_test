@@ -24,8 +24,8 @@ jobs:
 
     # Get the tag version as $ {{steps.get_version.outputs.VERSION}}
     - name: Get the version
-    id: get_version
-    run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      id: get_version
+      run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
 
     # Helps set up MSBuild into PATH for later usage
     - name: setup-msbuild
