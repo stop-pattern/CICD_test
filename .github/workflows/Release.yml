@@ -47,8 +47,8 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Run a script
-      run: dir test\test\out\
-      shell: cmd
+      run: ls -l test\test\out\
+      shell: bash
 
     # Upload a build artifact that can be used by subsequent workflow steps
     - name: Upload a Build Artifact
