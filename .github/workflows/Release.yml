@@ -64,16 +64,6 @@ jobs:
       run: Compress-Archive -LiteralPath .\README.md, .\LICENSE, .\test\test\out\*.dll -DestinationPath .\test_${{ steps.get_version.outputs.VERSION }}.zip
       shell: powershell
 
-    # Runs a set of commands using the runners shell
-    - name: Run a script `dir`
-      run: dir
-      shell: cmd
-
-    # Runs a set of commands using the runners shell
-    - name: Run a script
-      run: dir test\
-      shell: cmd
-
     # Create a release for a tag in this repository
     - name: Create Release
       id: create_release
