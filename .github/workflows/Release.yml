@@ -61,8 +61,8 @@ jobs:
 
     # Using zip for an build artifact
     - name: Zip artifact
-      run: Compress-Archive -LiteralPath .\README.md, .\LICENSE, .\test\test\out\*.dll -DestinationPath .\test_${{ steps.get_version.outputs.VERSION }}.zip
-      shell: powershell
+      run: zip .\test_${{ steps.get_version.outputs.VERSION }}.zip .\README.md, .\LICENSE, .\test\test\out\*.dll
+      shell: bash
 
     # Create a release for a tag in this repository
     - name: Create Release
