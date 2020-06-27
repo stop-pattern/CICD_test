@@ -60,9 +60,15 @@ jobs:
         path: test\test\out\*.dll
 
     # Using zip for an build artifact
+    #- name: Zip artifact
+    #  run: zip .\test_${{ steps.get_version.outputs.VERSION }}.zip .\README.md .\LICENSE .\test\test\out\*.dll
+    #  shell: bash
+    
     - name: Zip artifact
-      run: zip .\test_${{ steps.get_version.outputs.VERSION }}.zip .\README.md .\LICENSE .\test\test\out\*.dll
-      shell: bash
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: '.\test_${{ steps.get_version.outputs.VERSION }}.zip'
+        exclusions: '.\README.md .\LICENSE .\test\test\out\*.dll'
 
     # Create a release for a tag in this repository
     - name: Create Release
